@@ -78,8 +78,8 @@ export default function Url(){
           // const shortened = await getURL(url);
 
 
-          axios.post(`/api`,{url: url})
-          .then(response=> setShortUrl(`http://localhost:8000/api/${response.data.shortId}`))
+          axios.post(`https://shrtly.onrender.com/api`,{url: url})
+          .then(response=> setShortUrl(`https://shrtly.onrender.com/api/${response.data.shortId}`))
           .catch((error) => {
             console.error(error);
           })

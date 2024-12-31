@@ -9,10 +9,10 @@ export default defineConfig(({ mode }) => {
       'process.env.SOME_KEY': JSON.stringify(env.SOME_KEY)
     },
     plugins: [react()],
-    server: {
-      proxy: {
-        '/api': 'http://localhost:8000',
-      },
-    },
+    // server: {
+    //   proxy: {
+    //     '/api': 'http://localhost:8000',
+    //   },
+    // },
   }
 })
