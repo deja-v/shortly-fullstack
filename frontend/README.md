@@ -19,8 +19,8 @@ Follow these steps to set up the project locally:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/shortly.git
-   cd shortly
+   git clone https://github.com/deja-v/shortly-fullstack.git
+   cd shortly-fullstack/frontend
    ```
 
 2. Install dependencies:
