@@ -3,7 +3,6 @@ import { ShortUrl } from "../models/shortUrl.js"
 import {nanoid} from "nanoid"
 
 async function handleCreateShortUrl(req,res){
-    
     try {
         const body = req.body;
         if(!body || !body.url) res.send("please provide an url")
