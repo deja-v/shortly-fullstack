@@ -30,13 +30,13 @@ async function handleUserRegister(req, res) {
       });
     }
 
-    const saltRounds = 12;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    // const saltRounds = 12;
+    // const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const user = await User.create({
       name: name.trim(),
       email: email.toLowerCase(),
-      password: hashedPassword,
+      password: password,
       createdAt: new Date()
     });
 
@@ -72,8 +72,7 @@ async function handleUserRegister(req, res) {
 async function handleUserLogin(req, res) {
   try {
     const { email, password } = req.body;
-
-    const user = await User.findOne({ email: email.toLowerCase() });
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -81,7 +80,7 @@ async function handleUserLogin(req, res) {
       });
     }
 
-    const passwordMatch = await bcrypt.compare(password, user.password);
+    const passwordMatch = password === user.password; // bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       return res.status(401).json({
         success: false,
