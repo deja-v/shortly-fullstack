@@ -1,30 +1,50 @@
-import 'dotenv/config'
-import express, { urlencoded } from 'express';
-import connectDB from './connection.js';
-import urlRouter from './routes/url.js';
-import userRouter from './routes/user.js';
-import cors from "cors"
-const app = express();
-const port = process.env.PORT || 8000;
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import connectDB  from './connection.js';
+import urlRoutes, { validateShortId } from './routes/url.js';
+import authRoutes from './routes/user.js';
+import { handleRedirect } from './controllers/url.js';
 
-//connection
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 connectDB();
 
-const allowedOrigins = [
-  'https://shortly-jade-tau.vercel.app',
-  'http://localhost:5173',
-];
+app.use('/api/user', authRoutes);
+app.use('/api', urlRoutes);
 
-app.use(cors({
-    origin: allowedOrigins, 
-    methods: 'GET,POST,PUT,DELETE',
-}));
+app.get('/:shortId', 
+    validateShortId,
+    handleRedirect
+);
+// Health check
+app.get('/health', (req, res) => {
+    res.json({ status: 'OK', timestamp: new Date().toISOString() });
+});
 
-app.use(express.urlencoded({extended:false}))
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({
+        success: false,
+        message: 'Something went wrong!'
+    });
+});
 
-app.use(express.json());
+app.use('*', (req, res) => {
+    res.status(404).json({
+        success: false,
+        message: 'Route not found'
+    });
+});
 
-app.use('/api/user', userRouter);
-app.use('/api', urlRouter);
-
-app.listen(port, () => {console.log('Server is running on port ', port)});
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
