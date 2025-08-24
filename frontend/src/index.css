@@ -14,11 +14,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-}
 
 body {
   margin: 0;
@@ -200,3 +195,111 @@ input::placeholder {
   margin-top: 10px;
   color: #009688;
   }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Global CSS Variables for Theme Switching */
+:root {
+  /* Light Theme - Softer, more pleasant colors */
+  --bg-primary: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-navbar: #ffffff;
+  --bg-input: #f1f5f9;
+  --bg-secondary: #e2e8f0;
+  --bg-hover: #e2e8f0;
+  
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-input: #1e293b;
+  
+  --border-color: #cbd5e1;
+  --border-hover: #94a3b8;
+  
+  --primary-color: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-shadow: rgba(59, 130, 246, 0.1);
+}
+
+[data-theme="dark"] {
+  /* Dark Theme - Better contrast and visibility */
+  --bg-primary: #0f172a;
+  --bg-card: #1e293b;
+  --bg-navbar: #1e293b;
+  --bg-input: #334155;
+  --bg-secondary: #475569;
+  --bg-hover: #475569;
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-input: #f8fafc;
+  
+  --border-color: #475569;
+  --border-hover: #64748b;
+  
+  --primary-color: #60a5fa;
+  --primary-hover: #3b82f6;
+  --primary-shadow: rgba(96, 165, 250, 0.1);
+}
+
+/* Smooth transitions for theme switching */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Material-UI Theme Overrides */
+.MuiOutlinedInput-root {
+  color: var(--text-input) !important;
+}
+
+.MuiOutlinedInput-input {
+  color: var(--text-input) !important;
+}
+
+.MuiOutlinedInput-input::placeholder {
+  color: var(--text-secondary) !important;
+  opacity: 0.7;
+}
+
+.MuiInputLabel-root {
+  color: var(--text-secondary) !important;
+}
+
+.MuiInputLabel-root.Mui-focused {
+  color: var(--primary-color) !important;
+}
+
+.MuiIconButton-root {
+  color: var(--text-primary) !important;
+}
+
+.MuiIconButton-root:hover {
+  background-color: var(--bg-hover) !important;
+}
