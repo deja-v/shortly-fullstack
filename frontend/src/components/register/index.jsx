@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   TextField, 
   Button, 
@@ -8,14 +9,43 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff, Email, Lock, Person } from '@mui/icons-material';
 import styles from './styles.module.scss';
+import axiosInstance from '../../utils/axiosInstance';
+import { isAxiosError } from 'axios';
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     password: ''
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleRegister = async () => {
+    try {
+      const response = await axiosInstance.post("/user/register", {
+        name: formData.fullName,
+        email: formData.email,
+        password: formData.password,
+      });
+
+      console.log(response.data);
+      if (response.data && response.data.accessToken) {
+        localStorage.setItem("token", response.data.accessToken);
+        navigate("/");
+      }
+    } catch (error) {
+      if (isAxiosError(error) && error.response) {
+        const data = error.response.data;
+        setError(data.msg || "An unexpected error occurred. Please try again");
+      } else if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("An unexpected error occurred. Please try again");
+      }
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -26,7 +56,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Register form submitted:', formData);
+    handleRegister();
   };
 
   const togglePasswordVisibility = () => {
@@ -128,6 +158,15 @@ const Register = () => {
             />
           </div>
 
+          {/* Error display */}
+          {error && (
+            <div className={styles.errorContainer}>
+              <Typography variant="body2" className={styles.errorText}>
+                {error}
+              </Typography>
+            </div>
+          )}
+
           <Button
             type="submit"
             fullWidth
@@ -140,7 +179,9 @@ const Register = () => {
           <div className={styles.footer}>
             <Typography variant="body2" className={styles.footerText}>
               Already have an account?{' '}
-              <span className={styles.footerLink}>Sign in</span>
+              <span className={styles.footerLink} onClick={() => navigate("/login")}>
+                Sign in
+              </span>
             </Typography>
           </div>
         </form>

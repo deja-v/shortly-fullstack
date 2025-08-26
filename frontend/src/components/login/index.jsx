@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   TextField, 
   Button, 
@@ -12,23 +13,24 @@ import axiosInstance from '../../utils/axiosInstance';
 import { isAxiosError } from 'axios';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
 
   const handleLogin = async () => {
-        try {
+    try {
       const response = await axiosInstance.post("/user/login", {
         email: formData.email,
         password: formData.password,
       });
 
-      console.log(response.data);
       if (response.data && response.data.accessToken) {
         localStorage.setItem("token", response.data.accessToken);
-        navigate("/dashboard");
+        navigate("/");
       }
     } catch (error) {
       if (isAxiosError(error) && error.response) {
@@ -40,7 +42,7 @@ const Login = () => {
         setError("An unexpected error occurred. Please try again");
       }
     }
-  }
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -132,6 +134,14 @@ const Login = () => {
             />
           </div>
 
+          {error && (
+            <div className={styles.errorContainer}>
+              <Typography variant="body2" className={styles.errorText}>
+                {error}
+              </Typography>
+            </div>
+          )}
+
           {/* <div className={styles.forgotPassword}>
             <Typography variant="body2" className={styles.forgotLink}>
               Forgot password?
@@ -150,7 +160,9 @@ const Login = () => {
           <div className={styles.footer}>
             <Typography variant="body2" className={styles.footerText}>
               Don't have an account?{' '}
-              <span className={styles.footerLink}>Sign up</span>
+              <span className={styles.footerLink} onClick={() => navigate("/register")}>
+                Sign up
+              </span>
             </Typography>
           </div>
         </form>

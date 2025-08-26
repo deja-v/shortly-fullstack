@@ -107,3 +107,17 @@
     gap: 8px;
   }
 }
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  background-color: var(--bg-primary);
+}
+
+.loadingSpinner {
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 500;
+}
