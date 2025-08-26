@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   TextField, 
   Button, 
@@ -8,6 +8,8 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff, Email, Lock } from '@mui/icons-material';
 import styles from './styles.module.scss';
+import axiosInstance from '../../utils/axiosInstance';
+import { isAxiosError } from 'axios';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +17,30 @@ const Login = () => {
     password: ''
   });
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleLogin = async () => {
+        try {
+      const response = await axiosInstance.post("/user/login", {
+        email: formData.email,
+        password: formData.password,
+      });
+
+      console.log(response.data);
+      if (response.data && response.data.accessToken) {
+        localStorage.setItem("token", response.data.accessToken);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      if (isAxiosError(error) && error.response) {
+        const data = error.response.data;
+        setError(data.msg || "An unexpected error occurred. Please try again");
+      } else if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("An unexpected error occurred. Please try again");
+      }
+    }
+  }
 
   const handleChange = (e) => {
     setFormData({
@@ -25,7 +51,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Login form submitted:', formData);
+    handleLogin();
   };
 
   const togglePasswordVisibility = () => {
