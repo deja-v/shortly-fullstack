@@ -51,4 +51,20 @@ export const validateToken = async () => {
   }
 };
 
+export const logout = async () => {
+  try {
+    const response = await axiosInstance.post("/user/logout");
+    if (response.data.success) {
+      localStorage.removeItem("token");
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error("Logout error:", error);
+    // Even if API call fails, clear local token
+    localStorage.removeItem("token");
+    return false;
+  }
+};
+
 export default axiosInstance;

@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, Outlet, Navigate, useNavigate } from "react-router-dom";
 import { ThemeProvider } from "./context/ThemeContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Url from "./components/url";
 import Login from "./components/login";
 import Register from "./components/register";
+import Home from "./components/home/index.jsx";
 import ThemeSwitcher from "./components/common/ThemeSwitcher";
 import { validateToken } from "./utils/axiosInstance";
 import styles from "./App.module.scss";
@@ -35,7 +38,6 @@ const PrivateRoutes = () => {
 
 const Navigation = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -49,7 +51,7 @@ const Navigation = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
-    navigate("/login");
+    window.location.href = "/";
   };
 
   return (
@@ -61,8 +63,11 @@ const Navigation = () => {
         <div className={styles.navLinks}>
           {isAuthenticated ? (
             <>
-              <Link to="/" className={styles.navLink}>
+              <Link to="/dashboard" className={styles.navLink}>
                 Dashboard
+              </Link>
+              <Link to="/analytics" className={styles.navLink}>
+                Analytics
               </Link>
               <button onClick={handleLogout} className={styles.navLink}>
                 Sign Out
@@ -93,13 +98,18 @@ function App() {
           <Navigation />
           <main className={styles.main}>
             <Routes>
+              <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              
+              {/* Protected Routes */}
               <Route element={<PrivateRoutes />}>
-                <Route path="/" element={<Url />} />
+                <Route path="/dashboard" element={<Url />} />
+                <Route path="/analytics" element={<div>Analytics Page - Coming Soon</div>} />
               </Route>
             </Routes>
           </main>
+          <ToastContainer />
         </div>
       </Router>
     </ThemeProvider>

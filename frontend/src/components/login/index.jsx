@@ -33,13 +33,14 @@ const Login = () => {
         navigate("/");
       }
     } catch (error) {
+      console
       if (isAxiosError(error) && error.response) {
         const data = error.response.data;
-        setError(data.msg || "An unexpected error occurred. Please try again");
+        setError(data.message || "An unexpected error occurred. Please try again");
       } else if (error instanceof Error) {
         setError(error.message);
       } else {
-        setError("An unexpected error occurred. Please try again");
+        setError(error.message || "An unexpected error occurred. Please try again");
       }
     }
   };
