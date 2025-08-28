@@ -33,7 +33,7 @@ const Login = () => {
         navigate("/");
       }
     } catch (error) {
-      console
+      console.error('Login error:', error);
       if (isAxiosError(error) && error.response) {
         const data = error.response.data;
         setError(data.message || "An unexpected error occurred. Please try again");

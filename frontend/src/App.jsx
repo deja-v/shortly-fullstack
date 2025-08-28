@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, Outlet, Navigate, useNavi
 import { ThemeProvider } from "./context/ThemeContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Url from "./components/url";
+import Dashboard from "./components/dashboard/index.jsx";
 import Login from "./components/login";
 import Register from "./components/register";
 import Home from "./components/home/index.jsx";
@@ -104,7 +104,7 @@ function App() {
               
               {/* Protected Routes */}
               <Route element={<PrivateRoutes />}>
-                <Route path="/dashboard" element={<Url />} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/analytics" element={<div>Analytics Page - Coming Soon</div>} />
               </Route>
             </Routes>

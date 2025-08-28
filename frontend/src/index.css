@@ -228,50 +228,109 @@ code {
 
 /* Global CSS Variables for Theme Switching */
 :root {
-  /* Light Theme - Softer, more pleasant colors */
-  --bg-primary: #f8fafc;
+  /* Light Theme - Inspired by Color Hunt Palette */
+  --bg-primary: #f8f9fa;
   --bg-card: #ffffff;
   --bg-navbar: #ffffff;
-  --bg-input: #f1f5f9;
-  --bg-secondary: #e2e8f0;
-  --bg-hover: #e2e8f0;
+  --bg-input: #f1f3f4;
+  --bg-secondary: #e9ecef;
+  --bg-hover: #dee2e6;
   
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
-  --text-input: #1e293b;
+  --text-primary: #222831;
+  --text-secondary: #393E46;
+  --text-input: #222831;
   
-  --border-color: #cbd5e1;
-  --border-hover: #94a3b8;
+  --border-color: #dee2e6;
+  --border-hover: #adb5bd;
   
-  --primary-color: #3b82f6;
-  --primary-hover: #2563eb;
-  --primary-shadow: rgba(59, 130, 246, 0.1);
+  --primary-color: #00ADB5;
+  --primary-hover: #0099a3;
+  --primary-shadow: rgba(0, 173, 181, 0.15);
+  
+  /* Additional light mode specific colors for better contrast */
+  --button-bg: #00ADB5;
+  --button-text: #ffffff;
+  --button-hover: #0099a3;
+  --input-bg: #f8f9fa;
+  --input-border: #dee2e6;
+  --card-border: #dee2e6;
+  
+  /* Success and error colors */
+  --success-bg: #d1ecf1;
+  --success-text: #0c5460;
+  --success-border: #bee5eb;
+  --error-bg: #f8d7da;
+  --error-text: #721c24;
+  --error-border: #f5c6cb;
 }
 
 [data-theme="dark"] {
-  /* Dark Theme - Better contrast and visibility */
-  --bg-primary: #0f172a;
-  --bg-card: #1e293b;
-  --bg-navbar: #1e293b;
-  --bg-input: #334155;
-  --bg-secondary: #475569;
-  --bg-hover: #475569;
+  /* Dark Theme - Color Hunt Palette Variation */
+  --bg-primary: #222831;
+  --bg-card: #393E46;
+  --bg-navbar: #393E46;
+  --bg-input: #2d3748;
+  --bg-secondary: #2d3748;
+  --bg-hover: #4a5568;
   
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-input: #f8fafc;
+  --text-primary: #ffffff;
+  --text-secondary: #EEEEEE;
+  --text-input: #ffffff;
   
-  --border-color: #475569;
-  --border-hover: #64748b;
+  --border-color: #4a5568;
+  --border-hover: #718096;
   
-  --primary-color: #60a5fa;
-  --primary-hover: #3b82f6;
-  --primary-shadow: rgba(96, 165, 250, 0.1);
+  --primary-color: #00ADB5;
+  --primary-hover: #0099a3;
+  --primary-shadow: rgba(0, 173, 181, 0.2);
+  
+  /* Additional dark mode specific colors for better contrast */
+  --button-bg: #00ADB5;
+  --button-text: #ffffff;
+  --button-hover: #0099a3;
+  --input-bg: #2d3748;
+  --input-border: #4a5568;
+  --card-border: #4a5568;
+  
+  /* Success and error colors for dark mode */
+  --success-bg: #1e4d2b;
+  --success-text: #d4edda;
+  --success-border: #2d5a3a;
+  --error-bg: #4d1e1e;
+  --error-text: #f8d7da;
+  --error-border: #5a2d2d;
 }
 
 /* Smooth transitions for theme switching */
 * {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Enhanced visual styling */
+.card, .MuiCard-root {
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+.card:hover, .MuiCard-root:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Button enhancements */
+button, .MuiButton-root {
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Input field enhancements */
+input, .MuiOutlinedInput-root {
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+}
+
+input:focus, .MuiOutlinedInput-root.Mui-focused {
+  box-shadow: 0 0 0 3px var(--primary-shadow) !important;
 }
 
 /* Material-UI Theme Overrides */
@@ -302,4 +361,70 @@ code {
 
 .MuiIconButton-root:hover {
   background-color: var(--bg-hover) !important;
+}
+
+/* Dashboard specific Material-UI overrides */
+.MuiCard-root {
+  background-color: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+}
+
+.MuiTableCell-root {
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.MuiTableHead-root .MuiTableCell-root {
+  background-color: var(--bg-secondary) !important;
+  font-weight: 600 !important;
+}
+
+.MuiTableRow-root:hover {
+  background-color: var(--bg-hover) !important;
+}
+
+.MuiChip-root {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.MuiButton-contained {
+  background-color: var(--button-bg) !important;
+  color: var(--button-text) !important;
+}
+
+.MuiButton-contained:hover {
+  background-color: var(--button-hover) !important;
+}
+
+.MuiPaginationItem-root {
+  color: var(--text-secondary) !important;
+}
+
+.MuiPaginationItem-root.Mui-selected {
+  background-color: var(--button-bg) !important;
+  color: var(--button-text) !important;
+}
+
+/* Additional button and input overrides for better dark mode visibility */
+.MuiButton-root {
+  background-color: var(--button-bg) !important;
+  color: var(--button-text) !important;
+}
+
+.MuiButton-root:hover {
+  background-color: var(--button-hover) !important;
+}
+
+.MuiOutlinedInput-root {
+  background-color: var(--input-bg) !important;
+  border-color: var(--input-border) !important;
+}
+
+.MuiOutlinedInput-root:hover {
+  border-color: var(--border-hover) !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused {
+  border-color: var(--primary-color) !important;
 }
