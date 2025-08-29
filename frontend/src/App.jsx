@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, Outlet, Navigate, useNavigate } from "react-router-dom";
 import { ThemeProvider } from "./context/ThemeContext";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dashboard from "./components/dashboard/index.jsx";
@@ -8,22 +9,10 @@ import Login from "./components/login";
 import Register from "./components/register";
 import Home from "./components/home/index.jsx";
 import ThemeSwitcher from "./components/common/ThemeSwitcher";
-import { validateToken } from "./utils/axiosInstance";
 import styles from "./App.module.scss";
 
 const PrivateRoutes = () => {
-  const [isValidating, setIsValidating] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      const isValid = await validateToken();
-      setIsAuthenticated(isValid);
-      setIsValidating(false);
-    };
-
-    checkAuth();
-  }, []);
+  const { isAuthenticated, isValidating } = useAuth();
 
   if (isValidating) {
     return (
@@ -37,20 +26,10 @@ const PrivateRoutes = () => {
 };
 
 const Navigation = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      const isValid = await validateToken();
-      setIsAuthenticated(isValid);
-    };
-
-    checkAuth();
-  }, []);
+  const { isAuthenticated, logout } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsAuthenticated(false);
+    logout();
     window.location.href = "/";
   };
 
@@ -93,25 +72,27 @@ const Navigation = () => {
 function App() {
   return (
     <ThemeProvider>
-      <Router>
-        <div className={styles.container}>
-          <Navigation />
-          <main className={styles.main}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              
-              {/* Protected Routes */}
-              <Route element={<PrivateRoutes />}>
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/analytics" element={<div>Analytics Page - Coming Soon</div>} />
-              </Route>
-            </Routes>
-          </main>
-          <ToastContainer />
-        </div>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <div className={styles.container}>
+            <Navigation />
+            <main className={styles.main}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                
+                {/* Protected Routes */}
+                <Route element={<PrivateRoutes />}>
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/analytics" element={<div>Analytics Page - Coming Soon</div>} />
+                </Route>
+              </Routes>
+            </main>
+            <ToastContainer />
+          </div>
+        </Router>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

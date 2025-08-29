@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import { 
   TextField, 
   Button, 
@@ -14,6 +15,7 @@ import { isAxiosError } from 'axios';
 
 const Register = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -32,8 +34,8 @@ const Register = () => {
 
       console.log(response.data);
       if (response.data && response.data.accessToken) {
-        localStorage.setItem("token", response.data.accessToken);
-        navigate("/");
+        login(response.data.accessToken);
+        navigate("/dashboard");
       }
     } catch (error) {
       if (isAxiosError(error) && error.response) {
