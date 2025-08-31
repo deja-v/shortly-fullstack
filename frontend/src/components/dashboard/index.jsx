@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axiosInstance from "../../utils/axiosInstance";
 import styles from "./styles.module.scss";
+import UrlModal from "./UrlModal";
 import {
     Box,
     Card,
@@ -20,17 +21,20 @@ import {
     Chip,
     InputAdornment,
     Pagination,
-    Skeleton
+    Skeleton,
+    Fab
 } from "@mui/material";
 import {
     Search as SearchIcon,
     ContentCopy as CopyIcon,
     Delete as DeleteIcon,
+    Edit as EditIcon,
     TrendingUp as TrendingUpIcon,
     Link as LinkIcon,
     CalendarToday as CalendarIcon,
     Visibility as VisibilityIcon,
-    Email as EmailIcon
+    Email as EmailIcon,
+    Add as AddIcon
 } from "@mui/icons-material";
 
 const Dashboard = () => {
@@ -45,7 +49,10 @@ const Dashboard = () => {
     const [sortBy, setSortBy] = useState("createdAt");
     const [sortOrder, setSortOrder] = useState("desc");
 
-    // Fetch user profile
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalMode, setModalMode] = useState("create");
+    const [editingUrl, setEditingUrl] = useState(null);
+
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
@@ -62,7 +69,6 @@ const Dashboard = () => {
         fetchUserProfile();
     }, []);
 
-    // Fetch user URLs
     const fetchUserUrls = async (page = 1, search = "", sort = sortBy, order = sortOrder) => {
         setUrlsLoading(true);
         try {
@@ -76,19 +82,33 @@ const Dashboard = () => {
 
             const response = await axiosInstance.get(`/dashboard/urls?${params}`);
             if (response.data.success) {
-                setUrls(response.data.data.urls);
-                setTotalPages(Math.ceil(response.data.data.total / 10));
-                setCurrentPage(page);
+                if (response.data.data && response.data.data.urls) {
+                    setUrls(response.data.data.urls);
+
+                    const paginationData = response.data.data.pagination;
+                    if (paginationData && typeof paginationData.total === 'number') {
+                        const calculatedPages = Math.ceil(paginationData.total / 10);
+                        setTotalPages(calculatedPages);
+                    } else {
+                        setTotalPages(1);
+                    }
+                    setCurrentPage(page);
+                } else {
+                    setUrls([]);
+                    setTotalPages(1);
+                }
             }
         } catch (error) {
             console.error("Error fetching URLs:", error);
             toast.error("Failed to load URLs");
+            setUrls([]);
+            setTotalPages(1);
+            setCurrentPage(1);
         } finally {
             setUrlsLoading(false);
         }
     };
 
-    // Fetch user stats
     const fetchUserStats = async () => {
         try {
             const response = await axiosInstance.get("/dashboard/stats");
@@ -101,7 +121,6 @@ const Dashboard = () => {
         }
     };
 
-    // Initial data fetch
     useEffect(() => {
         const fetchData = async () => {
             await Promise.all([
@@ -114,18 +133,15 @@ const Dashboard = () => {
         fetchData();
     }, []);
 
-    // Handle search
     const handleSearch = (e) => {
         e.preventDefault();
         fetchUserUrls(1, searchTerm);
     };
 
-    // Handle pagination
     const handlePageChange = (event, page) => {
         fetchUserUrls(page, searchTerm);
     };
 
-    // Handle sorting
     const handleSort = (field) => {
         const newOrder = sortBy === field && sortOrder === "asc" ? "desc" : "asc";
         setSortBy(field);
@@ -133,7 +149,6 @@ const Dashboard = () => {
         fetchUserUrls(1, searchTerm, field, newOrder);
     };
 
-    // Copy URL to clipboard
     const copyToClipboard = async (text) => {
         try {
             await navigator.clipboard.writeText(text);
@@ -143,11 +158,10 @@ const Dashboard = () => {
         }
     };
 
-    // Delete URL
-    const handleDeleteUrl = async (urlId) => {
+    const handleDeleteUrl = async (shortId) => {
         if (window.confirm("Are you sure you want to delete this URL?")) {
             try {
-                await axiosInstance.delete(`/urls/${urlId}`);
+                await axiosInstance.delete(`/urls/${shortId}`);
                 toast.success("URL deleted successfully");
                 fetchUserUrls(currentPage, searchTerm);
                 fetchUserStats();
@@ -156,6 +170,28 @@ const Dashboard = () => {
                 toast.error("Failed to delete URL");
             }
         }
+    };
+
+    const handleOpenCreateModal = () => {
+        setModalMode("create");
+        setEditingUrl(null);
+        setIsModalOpen(true);
+    };
+
+    const handleOpenEditModal = (url) => {
+        setModalMode("edit");
+        setEditingUrl(url);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setEditingUrl(null);
+    };
+
+    const handleModalSuccess = () => {
+        fetchUserUrls(currentPage, searchTerm, sortBy, sortOrder);
+        fetchUserStats();
     };
 
     if (loading) {
@@ -187,7 +223,6 @@ const Dashboard = () => {
 
     return (
         <Box className={styles.dashboardContainer}>
-            {/* Header */}
             <Card className={styles.headerCard}>
                 <CardContent className={styles.headerContent}>
                     <Grid container spacing={2} alignItems="center">
@@ -213,13 +248,13 @@ const Dashboard = () => {
                                         Last login: {user?.lastLoginAt ? new Date(user.lastLoginAt).toLocaleDateString() : "N/A"}
                                     </Typography>
                                 </Box>
+
                             </Box>
                         </Grid>
                     </Grid>
                 </CardContent>
             </Card>
 
-            {/* Stats Cards */}
             {stats && (
                 <Grid container spacing={3} className={styles.statsGrid}>
                     <Grid item xs={12} sm={6} md={3}>
@@ -280,10 +315,8 @@ const Dashboard = () => {
                 </Grid>
             )}
 
-            {/* URLs Section */}
             <Card className={styles.urlsCard}>
                 <CardContent className={styles.urlsCardContent}>
-                    {/* Section Header */}
                     <Box className={styles.sectionHeader}>
                         <Grid container spacing={2} alignItems="center">
                             <Grid item xs={12} md={6}>
@@ -316,11 +349,20 @@ const Dashboard = () => {
                                         Search
                                     </Button>
                                 </Box>
+
                             </Grid>
                         </Grid>
+                        <Button
+                            variant="contained"
+                            startIcon={<AddIcon />}
+                            onClick={handleOpenCreateModal}
+                            className={styles.createUrlButton}
+                            size="medium"
+                        >
+                            Create New URL
+                        </Button>
                     </Box>
 
-                    {/* URLs Table */}
                     <Box className={styles.tableContainer}>
                         {urlsLoading ? (
                             <Box className={styles.loadingContainer}>
@@ -447,13 +489,23 @@ const Dashboard = () => {
                                                             onClick={() => copyToClipboard(url.shortUrl)}
                                                             size="small"
                                                             className={styles.copyButton}
+                                                            title="Copy URL"
                                                         >
                                                             <CopyIcon sx={{ fontSize: 18 }} />
                                                         </IconButton>
                                                         <IconButton
-                                                            onClick={() => handleDeleteUrl(url.id)}
+                                                            onClick={() => handleOpenEditModal(url)}
+                                                            size="small"
+                                                            className={styles.editButton}
+                                                            title="Edit URL"
+                                                        >
+                                                            <EditIcon sx={{ fontSize: 18 }} />
+                                                        </IconButton>
+                                                        <IconButton
+                                                            onClick={() => handleDeleteUrl(url.shortId)}
                                                             size="small"
                                                             className={styles.deleteButton}
+                                                            title="Delete URL"
                                                         >
                                                             <DeleteIcon sx={{ fontSize: 18 }} />
                                                         </IconButton>
@@ -467,19 +519,54 @@ const Dashboard = () => {
                         )}
                     </Box>
 
-                    {/* Pagination */}
-                    {totalPages > 1 && (
+                    {urls.length > 0 && (
                         <Box className={styles.paginationContainer}>
-                            <Pagination
-                                count={totalPages}
-                                page={currentPage}
-                                onChange={handlePageChange}
-                                color="primary"
-                            />
+                            {/* <Typography variant="body2" sx={{ mb: 2, textAlign: 'center', color: 'var(--text-secondary)' }}>
+                                Page {currentPage} of {Math.max(1, totalPages)} • {urls.length} URLs shown
+                            </Typography> */}
+                            {totalPages > 0 ? (
+                                <Pagination
+                                    count={Math.max(1, totalPages)}
+                                    page={Math.min(currentPage, Math.max(1, totalPages))}
+                                    onChange={handlePageChange}
+                                    color="primary"
+                                    showFirstButton
+                                    showLastButton
+                                    disabled={totalPages <= 1}
+                                    size="large"
+                                />
+                            ) : (
+                                <Typography variant="body2" sx={{ textAlign: 'center', color: 'var(--text-secondary)' }}>
+                                    Loading pagination...
+                                </Typography>
+                            )}
                         </Box>
                     )}
                 </CardContent>
             </Card>
+
+            <UrlModal
+                open={isModalOpen}
+                onClose={handleCloseModal}
+                onSuccess={handleModalSuccess}
+                editData={editingUrl}
+                mode={modalMode}
+            />
+
+            <Fab
+                color="primary"
+                aria-label="Create new URL"
+                onClick={handleOpenCreateModal}
+                className={styles.fab}
+                sx={{
+                    position: 'fixed',
+                    bottom: 24,
+                    right: 24,
+                    display: { xs: 'flex', md: 'none' }
+                }}
+            >
+                <AddIcon />
+            </Fab>
         </Box>
     );
 };
