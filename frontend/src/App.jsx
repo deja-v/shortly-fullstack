@@ -5,6 +5,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dashboard from "./components/dashboard/index.jsx";
+import Analytics from "./components/analytics/index.jsx";
 import Login from "./components/login";
 import Register from "./components/register";
 import Home from "./components/home/index.jsx";
@@ -85,7 +86,7 @@ function App() {
                 {/* Protected Routes */}
                 <Route element={<PrivateRoutes />}>
                   <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/analytics" element={<div>Analytics Page - Coming Soon</div>} />
+                  <Route path="/analytics" element={<Analytics />} />
                 </Route>
               </Routes>
             </main>
