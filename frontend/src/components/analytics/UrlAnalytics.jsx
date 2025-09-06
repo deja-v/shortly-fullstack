@@ -158,7 +158,7 @@ const UrlAnalytics = () => {
                                 <Grid item xs={12} md={8}>
                                     <Box className={styles.headerLeft}>
                                         <Typography variant="h4" className={styles.pageTitle}>
-                                            URL Analytics 📊
+                                            URL Analytics
                                         </Typography>
                                         <Typography variant="body1" className={styles.urlText}>
                                             {analytics.redirectUrl}
