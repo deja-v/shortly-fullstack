@@ -15,7 +15,7 @@ export const authRateLimit = rateLimit({
 // Rate limiter for general API endpoints
 export const generalRateLimit = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // 100 requests per window per IP
+  max: 100,
   message: {
     success: false,
     message: 'Too many requests, please try again later'
@@ -26,7 +26,6 @@ export const generalRateLimit = rateLimit({
 
 // Rate limiter for URL shortening (more restrictive for anonymous users)
 export const urlShortenRateLimit = (req, res, next) => {
-  // Different limits for authenticated vs anonymous users
   const limit = req.user ? 50 : 10; // 50 for auth users, 10 for anonymous
   const windowMs = 15 * 60 * 1000; // 15 minutes
   

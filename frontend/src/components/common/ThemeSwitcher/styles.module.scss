@@ -1,0 +1,17 @@
+.themeToggle {
+  color: var(--text-primary) !important;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 8px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: var(--bg-hover);
+    transform: scale(1.05);
+  }
+  
+  svg {
+    font-size: 20px;
+    color: var(--text-primary) !important;
+  }
+}

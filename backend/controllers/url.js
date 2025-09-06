@@ -260,7 +260,14 @@ async function handleUpdateUrl(req, res) {
         }
 
         const shortId = req.params.shortId;
-        const { customAlias, expiryDate, isPublic } = req.body;
+        const { url: redirectUrl, customAlias, expiryDate, isPublic } = req.body;
+
+        if (redirectUrl && !/^https?:\/\/.+/.test(redirectUrl)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Please provide a valid URL starting with http:// or https://'
+            });
+        }
 
         const url = await ShortUrl.findOne({ shortId, userId: req.user._id });
         
@@ -288,6 +295,7 @@ async function handleUpdateUrl(req, res) {
             }
         }
 
+        if (redirectUrl !== undefined) url.redirectUrl = redirectUrl;
         if (customAlias !== undefined) url.customAlias = customAlias || null;
         if (expiryDate !== undefined) url.expiryDate = expiryDate ? new Date(expiryDate) : null;
         if (isPublic !== undefined) url.isPublic = isPublic;
@@ -299,6 +307,7 @@ async function handleUpdateUrl(req, res) {
             message: 'URL updated successfully',
             data: {
                 shortId: url.shortId,
+                redirectUrl: url.redirectUrl,
                 customAlias: url.customAlias,
                 expiryDate: url.expiryDate,
                 isPublic: url.isPublic

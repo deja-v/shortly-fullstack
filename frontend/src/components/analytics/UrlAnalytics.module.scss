@@ -1,0 +1,511 @@
+// URL Analytics Container
+.urlAnalyticsContainer {
+  padding: 24px;
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+}
+
+.loadingContainer {
+  padding: 24px;
+}
+
+.errorContainer {
+  padding: 48px;
+  text-align: center;
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.errorTitle {
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.errorText {
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  max-width: 500px;
+}
+
+.headerCard {
+  margin-bottom: 24px;
+  background-color: var(--bg-card);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    border-color: var(--border-hover);
+    transform: translateY(-1px);
+  }
+}
+
+.headerContent {
+  padding: 24px !important;
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.backButton {
+  color: var(--button-outline-text) !important;
+  text-transform: none;
+  font-weight: 500;
+  margin-right: 8px;
+  background-color: var(--button-outline) !important;
+  border: 1px solid var(--primary-color) !important;
+  
+  &:hover {
+    background-color: var(--button-outline-hover) !important;
+    color: var(--button-outline-text-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.pageTitle {
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  font-size: 28px;
+}
+
+.urlText {
+  color: var(--text-primary);
+  font-weight: 600;
+  word-break: break-all;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.shortUrlText {
+  color: var(--text-secondary);
+  font-family: monospace;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.refreshButton {
+  color: var(--button-outline-text) !important;
+  border-color: var(--primary-color) !important;
+  background-color: var(--button-outline) !important;
+  
+  &:hover {
+    background-color: var(--button-outline-hover) !important;
+    border-color: var(--button-outline-hover) !important;
+    color: var(--button-outline-text-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.copyButton {
+  color: var(--text-secondary) !important;
+  background-color: var(--bg-hover) !important;
+  
+  &:hover {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.statCard {
+  background-color: var(--bg-card);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    border-color: var(--border-hover);
+  }
+}
+
+.statCardContent {
+  padding: 24px !important;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex: 1;
+}
+
+.statIcon {
+  font-size: 40px !important;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.statValue {
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.statLabel {
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+// Analytics Cards
+.analyticsCard {
+  background-color: var(--bg-card);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  height: 100%;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    border-color: var(--border-hover);
+  }
+}
+
+.cardContent {
+  padding: 24px !important;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardTitle {
+  font-weight: 600;
+  color: var(--text-primary) !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cardIcon {
+  color: var(--text-secondary) !important;
+  font-size: 20px !important;
+}
+
+// Empty State
+.emptyState {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-secondary);
+}
+
+.emptyStateIcon {
+  font-size: 48px !important;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.emptyStateTitle {
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.emptyStateText {
+  color: var(--text-secondary);
+}
+
+// Click History
+.clickHistory {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.clickItem {
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 0;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: var(--bg-hover);
+    border-radius: 8px;
+    margin: 0 -8px;
+    padding: 16px 8px;
+  }
+  
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.clickIcon {
+  color: var(--text-secondary);
+  font-size: 20px !important;
+}
+
+.timeChip {
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 11px !important;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+}
+
+.moreText {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-top: 16px;
+  font-style: italic;
+}
+
+// Daily Clicks
+.dailyClicks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dailyClickItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dateText {
+  color: var(--text-secondary);
+  font-size: 12px;
+  min-width: 40px;
+}
+
+.clickBar {
+  flex: 1;
+  height: 8px;
+  background-color: var(--bg-secondary);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.clickBarFill {
+  height: 100%;
+  background-color: var(--text-secondary);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.clickCount {
+  color: var(--text-primary);
+  font-weight: 600;
+  min-width: 20px;
+  text-align: right;
+}
+
+// URL Details - Compact Layout
+.urlDetailsCard {
+  background-color: var(--bg-card);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  margin-top: 24px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    border-color: var(--border-hover);
+  }
+}
+
+.urlDetailsContent {
+  padding: 20px !important;
+}
+
+.urlDetailsTitle {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  font-size: 18px;
+}
+
+.urlDetailsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.urlDetailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.urlDetailLabel {
+  color: var(--text-secondary);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.urlDetailValue {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 14px;
+  word-break: break-all;
+  margin: 0;
+}
+
+.statusChip {
+  align-self: flex-start;
+  font-weight: 500;
+  font-size: 11px !important;
+  height: 24px !important;
+  
+  &.MuiChip-colorSuccess {
+    background-color: var(--success-bg) !important;
+    color: var(--success-text) !important;
+    border: 1px solid var(--success-border) !important;
+  }
+  
+  &.MuiChip-colorError {
+    background-color: var(--error-bg) !important;
+    color: var(--error-text) !important;
+    border: 1px solid var(--error-border) !important;
+  }
+}
+
+// Legacy URL Details (keeping for backward compatibility)
+.divider {
+  margin: 16px 0;
+  border-color: var(--border-color);
+}
+
+.detailItem {
+  margin-bottom: 16px;
+}
+
+.detailLabel {
+  color: var(--text-secondary);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.detailValue {
+  color: var(--text-primary);
+  font-weight: 500;
+  word-break: break-all;
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .urlAnalyticsContainer {
+    padding: 16px;
+  }
+  
+  .headerContent {
+    padding: 16px !important;
+  }
+  
+  .cardContent {
+    padding: 16px !important;
+  }
+  
+  .statCardContent {
+    padding: 16px !important;
+  }
+  
+  .statCard {
+    height: 160px;
+    min-height: 160px;
+  }
+  
+  .statValue {
+    font-size: 24px;
+  }
+  
+  .statIcon {
+    font-size: 24px !important;
+  }
+  
+  .headerActions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .backButton {
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+  
+  .dailyClickItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .clickBar {
+    width: 100%;
+  }
+  
+  .emptyState {
+    padding: 32px 16px;
+  }
+  
+  // URL Details responsive
+  .urlDetailsGrid {
+    gap: 12px;
+  }
+  
+  .urlDetailsContent {
+    padding: 16px !important;
+  }
+  
+  .urlDetailsTitle {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  
+  .urlDetailItem {
+    gap: 4px;
+  }
+  
+  .urlDetailLabel {
+    font-size: 10px;
+  }
+  
+  .urlDetailValue {
+    font-size: 13px;
+  }
+  
+}
