@@ -148,7 +148,7 @@ const Analytics = () => {
                             <Grid container spacing={2} alignItems="center">
                                 <Grid item xs={12} md={8}>
                                     <Typography variant="h4" className={styles.welcomeText}>
-                                        Analytics Dashboard 📊
+                                        Analytics Dashboard
                                     </Typography>
                                     <Typography variant="body1" className={styles.subtitleText}>
                                         Track your URL performance and user engagement

@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dashboard from "./components/dashboard/index.jsx";
 import Analytics from "./components/analytics/index.jsx";
+import UrlAnalytics from "./components/analytics/UrlAnalytics.jsx";
 import Login from "./components/login";
 import Register from "./components/register";
 import Home from "./components/home/index.jsx";
@@ -87,6 +88,7 @@ function App() {
                 <Route element={<PrivateRoutes />}>
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/analytics" element={<Analytics />} />
+                  <Route path="/analytics/url/:shortId" element={<UrlAnalytics />} />
                 </Route>
               </Routes>
             </main>

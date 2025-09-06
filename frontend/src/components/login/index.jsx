@@ -22,8 +22,12 @@ const Login = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
 
   const handleLogin = async () => {
+    setError('');
+    setFieldErrors({});
+    
     try {
       const response = await axiosInstance.post("/user/login", {
         email: formData.email,
@@ -38,7 +42,23 @@ const Login = () => {
       console.error('Login error:', error);
       if (isAxiosError(error) && error.response) {
         const data = error.response.data;
-        setError(data.message || "An unexpected error occurred. Please try again");
+        
+        // Handle validation errors
+        if (data.errors && Array.isArray(data.errors)) {
+          const newFieldErrors = {};
+          data.errors.forEach(err => {
+            if (err.field && err.message) {
+              newFieldErrors[err.field] = err.message;
+            }
+          });
+          setFieldErrors(newFieldErrors);
+          
+          // Don't show general error message for validation errors
+          setError('');
+        } else {
+          // Handle other types of errors
+          setError(data.message || "An unexpected error occurred. Please try again");
+        }
       } else if (error instanceof Error) {
         setError(error.message);
       } else {
@@ -52,6 +72,15 @@ const Login = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+    
+    // Clear field error when user starts typing
+    if (fieldErrors[e.target.name]) {
+      setFieldErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[e.target.name];
+        return newErrors;
+      });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -94,6 +123,8 @@ const Login = () => {
               onChange={handleChange}
               placeholder="Enter your email"
               className={styles.input}
+              error={!!fieldErrors.email}
+              helperText={fieldErrors.email}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -116,6 +147,8 @@ const Login = () => {
               onChange={handleChange}
               placeholder="Enter your password"
               className={styles.input}
+              error={!!fieldErrors.password}
+              helperText={fieldErrors.password}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">

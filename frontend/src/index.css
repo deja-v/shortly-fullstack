@@ -19,13 +19,15 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--bg-primary);
 }
 
 .title, .heading{  
-  background: rgb(20,78,227);
-  background: linear-gradient(90deg, rgba(20,78,227,1) 0%, rgba(235,86,142,1) 35%, rgba(163,83,170,1) 100%);
+  background: var(--gradient-primary);
   color: transparent;
   background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 a{
@@ -74,8 +76,8 @@ input::placeholder {
 }
 
 .wrapper button {
-  background: #144EE3;
-  color: aliceblue;
+  background-color: var(--button-primary);
+  color: white;
   cursor: pointer;
   border: none;
   border-radius: 50px;
@@ -83,14 +85,15 @@ input::placeholder {
   height: 80%;
   width: 40%;
   position: absolute;
-  /* transform: translateX(195%); */
   right: 0;
   top: 10%; 
-  transition: 0.4s;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 .wrapper button:hover{
-  background: #2c67fc;
-  transition: 0.4s;
+  background-color: var(--button-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .icon {
@@ -226,79 +229,153 @@ code {
     monospace;
 }
 
-/* Global CSS Variables for Theme Switching */
+/* Global CSS Variables for Theme Switching - Modern Color Hunt Palette */
 :root {
-  /* Light Theme - Inspired by Color Hunt Palette */
-  --bg-primary: #f8f9fa;
+  /* Light Theme - Refined Color Hunt Palette */
+  --bg-primary: #f8fafc;
   --bg-card: #ffffff;
   --bg-navbar: #ffffff;
-  --bg-input: #f1f3f4;
-  --bg-secondary: #e9ecef;
-  --bg-hover: #dee2e6;
+  --bg-input: #ffffff;
+  --bg-secondary: #f1f5f9;
+  --bg-hover: #e2e8f0;
+  --bg-accent: #fef3c7;
   
-  --text-primary: #222831;
-  --text-secondary: #393E46;
-  --text-input: #222831;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --text-input: #1e293b;
   
-  --border-color: #dee2e6;
-  --border-hover: #adb5bd;
+  --border-color: #e2e8f0;
+  --border-hover: #cbd5e1;
+  --border-focus: #0BA6DF;
   
-  --primary-color: #00ADB5;
-  --primary-hover: #0099a3;
-  --primary-shadow: rgba(0, 173, 181, 0.15);
+  --primary-color: #0BA6DF;
+  --primary-hover: #0284c7;
+  --primary-light: #e0f2fe;
+  --primary-shadow: rgba(11, 166, 223, 0.15);
   
-  /* Additional light mode specific colors for better contrast */
-  --button-bg: #00ADB5;
-  --button-text: #ffffff;
-  --button-hover: #0099a3;
-  --input-bg: #f8f9fa;
-  --input-border: #dee2e6;
-  --card-border: #dee2e6;
+  --secondary-color: #FAA533;
+  --secondary-hover: #f59e0b;
+  --secondary-light: #fef3c7;
+  --secondary-shadow: rgba(250, 165, 51, 0.15);
   
-  /* Success and error colors */
-  --success-bg: #d1ecf1;
-  --success-text: #0c5460;
-  --success-border: #bee5eb;
-  --error-bg: #f8d7da;
-  --error-text: #721c24;
-  --error-border: #f5c6cb;
+  --accent-color: #EF7722;
+  --accent-hover: #ea580c;
+  --accent-light: #fed7aa;
+  --accent-shadow: rgba(239, 119, 34, 0.15);
+  
+  --neutral-color: #EBEBEB;
+  --neutral-hover: #d1d5db;
+  
+  /* Button colors */
+  --button-primary: #0BA6DF;
+  --button-primary-hover: #0284c7;
+  --button-primary-text: #ffffff;
+  
+  --button-secondary: #FAA533;
+  --button-secondary-hover: #f59e0b;
+  --button-secondary-text: #ffffff;
+  
+  --button-outline: transparent;
+  --button-outline-hover: #0BA6DF;
+  --button-outline-text: #0BA6DF;
+  --button-outline-text-hover: #ffffff;
+  
+  /* Status colors */
+  --success-color: #10b981;
+  --success-bg: #d1fae5;
+  --success-text: #065f46;
+  --success-border: #a7f3d0;
+  
+  --error-color: #ef4444;
+  --error-bg: #fee2e2;
+  --error-text: #991b1b;
+  --error-border: #fecaca;
+  
+  --warning-color: #f59e0b;
+  --warning-bg: #fef3c7;
+  --warning-text: #92400e;
+  --warning-border: #fde68a;
+  
+  /* Subtle gradients for modern look */
+  --gradient-subtle: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  --gradient-primary: linear-gradient(135deg, #0BA6DF 0%, #0284c7 100%);
+  --gradient-secondary: linear-gradient(135deg, #FAA533 0%, #f59e0b 100%);
 }
 
 [data-theme="dark"] {
-  /* Dark Theme - Color Hunt Palette Variation */
-  --bg-primary: #222831;
-  --bg-card: #393E46;
-  --bg-navbar: #393E46;
-  --bg-input: #2d3748;
-  --bg-secondary: #2d3748;
-  --bg-hover: #4a5568;
+  /* Dark Theme - Refined Color Hunt Palette Dark Variation */
+  --bg-primary: #0f172a;
+  --bg-card: #1e293b;
+  --bg-navbar: #1e293b;
+  --bg-input: #334155;
+  --bg-secondary: #334155;
+  --bg-hover: #475569;
+  --bg-accent: #451a03;
   
-  --text-primary: #ffffff;
-  --text-secondary: #EEEEEE;
-  --text-input: #ffffff;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-input: #f8fafc;
   
-  --border-color: #4a5568;
-  --border-hover: #718096;
+  --border-color: #334155;
+  --border-hover: #475569;
+  --border-focus: #0BA6DF;
   
-  --primary-color: #00ADB5;
-  --primary-hover: #0099a3;
-  --primary-shadow: rgba(0, 173, 181, 0.2);
+  --primary-color: #0BA6DF;
+  --primary-hover: #0284c7;
+  --primary-light: #0c4a6e;
+  --primary-shadow: rgba(11, 166, 223, 0.25);
   
-  /* Additional dark mode specific colors for better contrast */
-  --button-bg: #00ADB5;
-  --button-text: #ffffff;
-  --button-hover: #0099a3;
-  --input-bg: #2d3748;
-  --input-border: #4a5568;
-  --card-border: #4a5568;
+  --secondary-color: #FAA533;
+  --secondary-hover: #f59e0b;
+  --secondary-light: #451a03;
+  --secondary-shadow: rgba(250, 165, 51, 0.25);
   
-  /* Success and error colors for dark mode */
-  --success-bg: #1e4d2b;
-  --success-text: #d4edda;
-  --success-border: #2d5a3a;
-  --error-bg: #4d1e1e;
-  --error-text: #f8d7da;
-  --error-border: #5a2d2d;
+  --accent-color: #EF7722;
+  --accent-hover: #ea580c;
+  --accent-light: #7c2d12;
+  --accent-shadow: rgba(239, 119, 34, 0.25);
+  
+  --neutral-color: #475569;
+  --neutral-hover: #64748b;
+  
+  /* Button colors for dark mode */
+  --button-primary: #0BA6DF;
+  --button-primary-hover: #0284c7;
+  --button-primary-text: #ffffff;
+  
+  --button-secondary: #FAA533;
+  --button-secondary-hover: #f59e0b;
+  --button-secondary-text: #ffffff;
+  
+  --button-outline: transparent;
+  --button-outline-hover: #0BA6DF;
+  --button-outline-text: #0BA6DF;
+  --button-outline-text-hover: #ffffff;
+  
+  /* Status colors for dark mode */
+  --success-color: #10b981;
+  --success-bg: #064e3b;
+  --success-text: #a7f3d0;
+  --success-border: #065f46;
+  
+  --error-color: #ef4444;
+  --error-bg: #7f1d1d;
+  --error-text: #fecaca;
+  --error-border: #991b1b;
+  
+  --warning-color: #f59e0b;
+  --warning-bg: #451a03;
+  --warning-text: #fde68a;
+  --warning-border: #92400e;
+  
+  /* Subtle gradients for dark mode */
+  --gradient-subtle: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --gradient-card: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  --gradient-primary: linear-gradient(135deg, #0BA6DF 0%, #0284c7 100%);
+  --gradient-secondary: linear-gradient(135deg, #FAA533 0%, #f59e0b 100%);
 }
 
 /* Smooth transitions for theme switching */
@@ -306,14 +383,19 @@ code {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Enhanced visual styling */
+/* Modern card styling with Color Hunt Palette */
 .card, .MuiCard-root {
   border-radius: 12px !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid var(--border-color) !important;
+  background-color: var(--bg-card) !important;
+  transition: all 0.2s ease !important;
 }
 
 .card:hover, .MuiCard-root:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06) !important;
+  border-color: var(--border-hover) !important;
+  transform: translateY(-1px) !important;
 }
 
 /* Button enhancements */
@@ -323,14 +405,21 @@ button, .MuiButton-root {
   letter-spacing: 0.5px !important;
 }
 
-/* Input field enhancements */
+/* Input field enhancements with Color Hunt Palette */
 input, .MuiOutlinedInput-root {
   border-radius: 8px !important;
   transition: all 0.2s ease !important;
+  border: 1px solid var(--border-color) !important;
+  background-color: var(--input-bg) !important;
 }
 
 input:focus, .MuiOutlinedInput-root.Mui-focused {
-  box-shadow: 0 0 0 3px var(--primary-shadow) !important;
+  box-shadow: 0 0 0 2px var(--primary-shadow) !important;
+  border-color: var(--border-focus) !important;
+}
+
+input:hover, .MuiOutlinedInput-root:hover {
+  border-color: var(--border-hover) !important;
 }
 
 /* Material-UI Theme Overrides */
@@ -384,17 +473,31 @@ input:focus, .MuiOutlinedInput-root.Mui-focused {
 }
 
 .MuiChip-root {
-  background-color: var(--bg-secondary) !important;
-  color: var(--text-primary) !important;
+  background-color: var(--primary-light) !important;
+  color: var(--primary-color) !important;
+  border: 1px solid var(--primary-color) !important;
+  font-weight: 500 !important;
+}
+
+.MuiChip-root:hover {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 4px var(--primary-shadow) !important;
 }
 
 .MuiButton-contained {
-  background-color: var(--button-bg) !important;
-  color: var(--button-text) !important;
+  background-color: var(--button-primary) !important;
+  color: var(--button-primary-text) !important;
+  border: none !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  font-weight: 500 !important;
 }
 
 .MuiButton-contained:hover {
-  background-color: var(--button-hover) !important;
+  background-color: var(--button-primary-hover) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-1px) !important;
 }
 
 .MuiPaginationItem-root {
@@ -402,18 +505,36 @@ input:focus, .MuiOutlinedInput-root.Mui-focused {
 }
 
 .MuiPaginationItem-root.Mui-selected {
-  background-color: var(--button-bg) !important;
-  color: var(--button-text) !important;
+  background-color: var(--button-primary) !important;
+  color: var(--button-primary-text) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
 }
 
 /* Additional button and input overrides for better dark mode visibility */
 .MuiButton-root {
-  background-color: var(--button-bg) !important;
-  color: var(--button-text) !important;
+  background-color: var(--button-primary) !important;
+  color: var(--button-primary-text) !important;
+  border: none !important;
+  transition: all 0.2s ease !important;
+  font-weight: 500 !important;
 }
 
 .MuiButton-root:hover {
-  background-color: var(--button-hover) !important;
+  background-color: var(--button-primary-hover) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.MuiButton-outlined {
+  background-color: var(--button-outline) !important;
+  color: var(--button-outline-text) !important;
+  border: 1px solid var(--primary-color) !important;
+}
+
+.MuiButton-outlined:hover {
+  background-color: var(--button-outline-hover) !important;
+  color: var(--button-outline-text-hover) !important;
+  border: 1px solid var(--button-outline-hover) !important;
 }
 
 .MuiOutlinedInput-root {
