@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
+import axiosInstance from "../utils/axiosInstance";
 import ShortenedUrl from "./shortenedUrl";
 import UrlHistory from "./urlHistory";
 import useEffectAfterFirstRender from "./custom hooks/useEffectAfterFirstRender";
@@ -77,14 +77,11 @@ export default function Url(){
 
           // const shortened = await getURL(url);
 
-
-          axios.post(`https://shrtly.onrender.com/api`,{url: url})
-          .then(response=> setShortUrl(`https://shrtly.onrender.com/api/${response.data.shortId}`))
+          axiosInstance.post(`/api`,{url})
+          .then(response=> setShortUrl(`${import.meta.env.VITE_API_URL}/${response.data.shortId}`))
           .catch((error) => {
             console.error(error);
-          })
-          
-          
+          })          
     }
 
     useEffectAfterFirstRender(()=>{

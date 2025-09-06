@@ -1,0 +1,207 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  min-height: calc(100vh - 80px); /* Subtract navbar height */
+  padding: 20px;
+  background: var(--bg-primary);
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 32px;
+  width: 100%;
+  max-width: 545px;
+  box-sizing: border-box;
+  border: 1px solid var(--border-color);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 12px;
+}
+
+.logoIcon {
+  width: 36px;
+  height: 36px;
+  background: var(--primary-color);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.appName {
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  font-size: 22px;
+}
+
+.title {
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+  font-size: 22px;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 13px;
+  margin-left: 2px;
+}
+
+.input {
+  .MuiOutlinedInput-root {
+    border-radius: 8px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+    
+    &:hover {
+      border-color: var(--border-hover);
+    }
+    
+    &.Mui-focused {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px var(--primary-shadow);
+    }
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    border: none;
+  }
+
+  .MuiInputBase-input {
+    padding: 12px 12px 12px 36px;
+    font-size: 14px;
+    color: var(--text-input) !important;
+    
+    &::placeholder {
+      color: var(--text-secondary) !important;
+      opacity: 0.7;
+    }
+  }
+}
+
+.inputIcon {
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+
+.passwordToggle {
+  color: var(--text-secondary);
+  
+  &:hover {
+    background-color: var(--bg-hover);
+  }
+}
+
+.errorContainer {
+  margin-top: -8px;
+  margin-bottom: 8px;
+}
+
+.errorText {
+  color: #d32f2f;
+  font-size: 13px;
+  text-align: center;
+  background-color: rgba(211, 47, 47, 0.1);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(211, 47, 47, 0.2);
+}
+
+.submitBtn {
+  background: var(--primary-color);
+  color: white;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  text-transform: none;
+  margin-top: 8px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: var(--primary-hover);
+  }
+}
+
+.footer {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.footerText {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.footerLink {
+  color: var(--primary-color);
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 600;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Responsive design
+@media (max-width: 480px) {
+  .container {
+    padding: 16px;
+    min-height: calc(100vh - 70px); /* Adjust for smaller navbar on mobile */
+  }
+  
+  .card {
+    padding: 24px;
+    max-width: 100%;
+  }
+  
+  .title {
+    font-size: 20px;
+  }
+  
+  .appName {
+    font-size: 20px;
+  }
+}

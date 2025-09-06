@@ -1,0 +1,466 @@
+.analyticsContainer {
+  padding: 24px;
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+}
+
+.loadingContainer {
+  padding: 24px;
+}
+
+// Header Card
+.headerCard {
+  margin-bottom: 24px;
+  background-color: var(--bg-card);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    border-color: var(--border-hover);
+    transform: translateY(-1px);
+  }
+}
+
+.headerContent {
+  padding: 24px !important;
+}
+
+.welcomeText {
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.subtitleText {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.refreshButton {
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+  
+  &:hover {
+    background: var(--hover-bg) !important;
+    border-color: var(--primary-color) !important;
+  }
+}
+
+// Stats Grid
+.statsGrid {
+  margin-bottom: 24px;
+  justify-content: space-evenly;
+  
+  .MuiGrid-item {
+    display: flex;
+    
+    .statCard {
+      min-height: 180px;
+    }
+  }
+}
+
+.statCard {
+  background-color: var(--bg-card);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: var(--primary-color);
+  }
+}
+
+.statCardContent {
+  padding: 24px !important;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex: 1;
+}
+
+.statIcon {
+  font-size: 40px !important;
+  color: var(--primary-color);
+  margin-bottom: 16px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.statValue {
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.statLabel {
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+// Analytics Cards
+.analyticsCard {
+  background-color: var(--bg-card);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  height: 100%;
+}
+
+.cardContent {
+  padding: 24px !important;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardTitle {
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cardIcon {
+  color: var(--primary-color);
+  font-size: 20px !important;
+}
+
+// Table Styles
+.tableContainer {
+  overflow: auto;
+}
+
+.tableHeader {
+  background-color: var(--bg-secondary);
+}
+
+.tableHeaderCell {
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--bg-hover);
+  }
+}
+
+.tableRow {
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--bg-hover);
+  }
+
+  &:nth-of-type(even) {
+    background-color: var(--bg-hover);
+  }
+}
+
+.tableCell {
+  color: var(--text-primary);
+}
+
+.urlCell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.urlText {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.shortUrlText {
+  color: var(--text-secondary);
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.clickCountChip {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.actionsCell {
+  display: flex;
+  gap: 8px;
+}
+
+.analyticsButton {
+  background-color: var(--bg-secondary);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: var(--bg-hover);
+  }
+}
+
+.copyButton {
+  background-color: var(--bg-secondary);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: var(--bg-hover);
+  }
+}
+
+// Activity List
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.activityItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: var(--bg-hover);
+    border-color: var(--primary-color);
+  }
+}
+
+.activityContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.activityUrl {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.activityTime {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.activityActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.activityChip {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 11px !important;
+  font-weight: 600;
+}
+
+.activityButton {
+  background-color: var(--bg-secondary);
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: var(--bg-hover);
+  }
+}
+
+// Empty State
+.emptyState {
+  padding: 48px;
+  text-align: center;
+}
+
+.emptyStateIcon {
+  font-size: 60px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.emptyStateTitle {
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.emptyStateText {
+  color: var(--text-secondary);
+}
+
+.createButton {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-color-dark));
+  color: white;
+  font-weight: 600;
+  text-transform: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(135deg, var(--primary-color-dark), var(--primary-color));
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Quick Actions
+.quickActionsCard {
+  background-color: var(--bg-card);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+}
+
+.quickActions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.actionButton {
+  min-width: 160px;
+  
+  &.MuiButton-contained {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-color-dark));
+    color: white;
+    font-weight: 600;
+    text-transform: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      background: linear-gradient(135deg, var(--primary-color-dark), var(--primary-color));
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  &.MuiButton-outlined {
+    color: var(--text-primary);
+    border-color: var(--border-color);
+    
+    &:hover {
+      background-color: var(--bg-hover);
+      border-color: var(--primary-color);
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .analyticsContainer {
+    padding: 16px;
+  }
+  
+  .headerContent {
+    padding: 16px !important;
+  }
+  
+  .cardContent {
+    padding: 16px !important;
+  }
+  
+  .statCardContent {
+    padding: 16px !important;
+  }
+  
+  .statCard {
+    height: 160px;
+    min-height: 160px;
+  }
+  
+  .statValue {
+    font-size: 24px;
+  }
+  
+  .quickActions {
+    flex-direction: column;
+  }
+  
+  .actionButton {
+    min-width: 100%;
+  }
+  
+  .activityItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .activityActions {
+    align-self: flex-end;
+  }
+  
+  .emptyState {
+    padding: 32px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .analyticsContainer {
+    padding: 12px;
+  }
+  
+  .welcomeText {
+    font-size: 24px;
+  }
+  
+  .subtitleText {
+    font-size: 14px;
+  }
+  
+  .statCard {
+    height: 140px;
+    min-height: 140px;
+  }
+  
+  .statValue {
+    font-size: 20px;
+  }
+  
+  .statIcon {
+    font-size: 24px !important;
+  }
+  
+  .emptyState {
+    padding: 24px 12px;
+  }
+}
